@@ -18,7 +18,13 @@ services:
         sync: false
       - key: VATAR_RESULTS_SECRET
         sync: false
+      - key: PLAYER_SESSION_SECRET
+        generateValue: true
       - key: VATAR_API_URL
         sync: false
       - key: VATAR_SERVER_TOKEN
         sync: false
+      - key: SUPER_EAGLES_MATCH_DATES
+        value: ""
+      - key: MATCHDAY_EVENT_TITLE
+        value: Super Eagles Matchday Challenge
