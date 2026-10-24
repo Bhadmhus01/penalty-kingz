@@ -3,7 +3,12 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "description": "Naija Penalty Kingz for Lagos Life",
-  "scripts": {"start":"node server.js", "test":"node --test"},
-  "engines": {"node": ">=20"}
+  "description": "Independent Lagos-inspired penalty game with a zero-dependency Node.js backend",
+  "scripts": {
+    "start": "node server.js",
+    "test": "node --test"
+  },
+  "engines": {
+    "node": ">=20"
+  }
 }
