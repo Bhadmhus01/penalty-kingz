@@ -1,0 +1,9 @@
+{
+  "name": "naija-penalty-kingz",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Naija Penalty Kingz for Lagos Life",
+  "scripts": {"start":"node server.js", "test":"node --test"},
+  "engines": {"node": ">=20"}
+}
