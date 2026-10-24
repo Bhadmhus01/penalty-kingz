@@ -20,9 +20,7 @@ services:
         sync: false
       - key: PLAYER_SESSION_SECRET
         generateValue: true
-      - key: VATAR_API_URL
-        sync: false
-      - key: VATAR_SERVER_TOKEN
+      - key: VATAR_SECRET
         sync: false
       - key: SUPER_EAGLES_MATCH_DATES
         value: ""
