@@ -1,4 +1,4 @@
-const CACHE='penalty-kingz-shell-v2';
+const CACHE='penalty-kingz-shell-v3';
 const ASSETS=['/','/styles.css','/game.js','/manifest.webmanifest','/assets/icon-512.png','/assets/shot-1.png','/assets/shot-2.png','/assets/shot-3.png','/assets/shot-4.png'];
 self.addEventListener('install',event=>event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(ASSETS)).then(()=>self.skipWaiting())));
 self.addEventListener('activate',event=>event.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(key=>key!==CACHE).map(key=>caches.delete(key)))).then(()=>self.clients.claim())));

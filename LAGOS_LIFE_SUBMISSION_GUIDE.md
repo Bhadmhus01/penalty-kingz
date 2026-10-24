@@ -3,9 +3,9 @@
 ## Dashboard copy (paste-ready)
 
 **Game title:** Naija Penalty Kingz: 1v1 Super Striker & Keeper Showdown  
-**Platform:** Lagos Life (`https://lagoslife.app`)  
+**Intended hosting platform:** Lagos Life (`https://lagoslife.app`); platform listing and approval are not verified by this repository.<br>
 **Short description:** Take the spot kick. Own the Lagos night. Five fast rounds of penalty drama, Nigerian stadiums, skill upgrades and matchday rewards.  
-**Full description:** Step into the boots of a Lagos legend in a mobile-first 1v1 penalty showdown. Pick your shot style, read the keeper, bend the ball into a corner, then dive to deny your rival. Play Ajegunle, Onikan, Uyo and Abuja, upgrade four player attributes, and chase the Matchday leaderboard. Includes responsive Canvas gameplay, local progress recovery, Vatar Games SDK v1 contextual purchase integration, and a Nigerian matchday soundscape.  
+**Full description:** Naija Penalty Kingz is an independently developed mobile-first 1v1 football penalty game. Pick your shot style, read the keeper, bend the ball into a corner, then dive to deny your rival. Play Ajegunle, Onikan, Uyo and Abuja, upgrade four player attributes, and chase the Matchday leaderboard. It includes responsive Canvas gameplay, local recovery, guest/Vatar-backed cloud progress where configured, shareable result cards, and a Nigerian matchday soundscape. Lagos Life is referenced only as the intended hosting platform; no endorsement or acceptance is claimed.<br>
 **Category:** Sports / Football  
 **Orientation:** Portrait; optimized for 375 × 812 and responsive mobile screens  
 **Launch URL:** `https://<your-render-service>.onrender.com/`  
@@ -18,7 +18,11 @@
 
 The app provides an Africa/Lagos timezone daily challenge (`GET /api/challenge`), a local streak and match-history record, PWA install/offline shell, and downloadable/share-sheet result cards. The daily banner does not claim to be a live fixture feed. To show a genuine scheduled matchday bonus, configure `SUPER_EAGLES_MATCH_DATES` as comma-separated `YYYY-MM-DD` dates in Lagos local time and optionally set `MATCHDAY_EVENT_TITLE` in Render; update dates from an authoritative fixture calendar. Without that configuration the game clearly labels the challenge as a daily rotation.
 
-`GET /api/leaderboard` aggregates only signed match settlements. The client does not submit unsigned scores to that endpoint. Configure the platform's signed score callback using the five-line settlement signature described below before advertising a live competitive leaderboard. Guest progress is stored under a random per-browser anonymous ID and backed up server-side. Where Vatar provides a session token and verified account ID, `/session/verify` mints an eight-hour HMAC-signed player proof and progress sync binds to that verified ID. A Lagos Life main-game currency bridge still requires a separate approved platform API; this game does not claim to share currencies.
+`GET /api/leaderboard` aggregates only signed match settlements and returns whether `VATAR_RESULTS_SECRET` is configured plus the number of accepted settlements. The UI distinguishes an unconfigured board from a configured board awaiting its first signed results; it never fabricates entries. Configure and test the platform's signed score callback using the five-line settlement signature described below before advertising a live competitive leaderboard. Guest progress is stored under a random per-browser anonymous ID and backed up to the Render disk. The header shows whether progress is cloud-saved for this browser, linked to a verified Vatar account, or only saved locally while offline. Where Vatar provides a session token and verified account ID, `/session/verify` mints an eight-hour HMAC-signed player proof and sync binds to that verified ID. Account login itself remains controlled by the host platform; this game does not invent a login flow or claim shared currencies.
+
+## Games hub entry points and deep links
+
+Use the Render service root as the Games catalog launch URL: `https://<your-render-service>.onrender.com/`. The game also supports stable in-app routes for `/?screen=home`, `/?screen=stadiums`, `/?screen=shop`, `/?screen=stats`, and `/?screen=leaderboard`; shared rival challenges use `/?rivalScore=<0-6>`. The screenshot assets are in `public/assets/shot-1.png` through `shot-4.png`, and the app permits embedding from the listed Lagos Life origins. Register the root URL as the catalog tile and use the deep links where the hub supports sub-pages. No undocumented hub-navigation SDK method or custom scheme is assumed; Lagos Life must confirm its catalog registration contract and any required callback/route before acceptance.
 
 ## Vatar SDK & server setup
 
@@ -39,10 +43,15 @@ The game loads `https://lagoslife.app/sdk/vatar-games-v1.js`, calls `Vatar.purch
 
 ## Submission checklist
 
+- [ ] Obtain Lagos Life's current submission, trademark/branding, game-hub registration, deep-link, and review requirements; this repository cannot certify acceptance.
 - [ ] Deploy Render service from `render.yaml`; set both HMAC secrets and Vatar server credentials.
 - [ ] Set up persistent disk or external durable storage for production player/claim state.
 - [ ] Add the six product IDs and prices exactly as shown above in Vatar dashboard.
 - [ ] Register `/vatar-webhook` and test purchase and delivery callbacks.
+- [ ] Register the root launch URL in the Games/Stadium hub and verify the hub opens the service in the correct embedded context.
+- [ ] Test each `?screen=` deep link and the share-card challenge link from an external messaging app.
 - [ ] Test on Lagos Life in-game browser (not only a standalone browser); SDK checkout requires the platform host.
-- [ ] Review listing images in `public/assets/` (icon-512 and four 750 × 1334 portrait screenshots).
+- [ ] Verify account binding and cloud-save restoration across devices using real platform sessions.
+- [ ] Confirm the signed result callback is configured and the leaderboard moves from its empty state using actual test settlements.
+- [ ] Review approved brand copy and listing images in `public/assets/` (icon-512 and four 750 × 1334 portrait screenshots).
 - [ ] Confirm `GET /api/dev-checklist` returns configured webhook/settlement items after secrets are set.
